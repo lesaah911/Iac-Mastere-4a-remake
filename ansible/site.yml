@@ -1,0 +1,6 @@
+---
+- name: Configurer la VM (nginx apt + bonus Docker)
+  hosts: web
+  roles:
+    - install_nginx
+    - docker_demo
