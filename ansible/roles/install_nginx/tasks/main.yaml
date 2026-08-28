@@ -1,0 +1,46 @@
+---
+- name: Installer nginx (apt)
+  become: true
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+
+- name: Demarrer et activer nginx
+  become: true
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Deployer la configuration nginx (Jinja2 + variables defaults)
+  become: true
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload nginx
+
+- name: Creer le dossier racine web
+  become: true
+  ansible.builtin.file:
+    path: "{{ nginx_root }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+
+- name: Deployer la page web (html, css, js)
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ nginx_root }}/{{ item }}"
+    owner: www-data
+    group: www-data
+    mode: "0644"
+  loop:
+    - index.html
+    - style.css
+    - script.js

@@ -1,0 +1,84 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, "Segoe UI", sans-serif;
+  color: #2a1a1a;
+  overflow-x: hidden;
+}
+
+/* Coucher de soleil en CSS pur (degrade + soleil en radial-gradient) */
+.sunset {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 78%, #ffd27a 0%, #ffb060 12%, rgba(255,176,96,0) 45%),
+    linear-gradient(180deg,
+      #1b1042 0%,
+      #4a1942 22%,
+      #9a2f4e 42%,
+      #d9534f 58%,
+      #f2874a 72%,
+      #ffb75e 85%,
+      #ffe0a3 100%
+    );
+}
+
+.card {
+  max-width: 480px;
+  margin: 2rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: rgba(255, 250, 245, 0.88);
+  backdrop-filter: blur(6px);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.6rem;
+  color: #7a2e1d;
+}
+
+.subtitle {
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+  color: #a8542f;
+  font-weight: 600;
+}
+
+.counter-label {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  padding: 0.75rem 1.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f2874a, #d9534f);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(217, 83, 79, 0.4);
+  transition: transform 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+#counter-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #7a2e1d;
+  margin: 0.5rem 0 0;
+}
