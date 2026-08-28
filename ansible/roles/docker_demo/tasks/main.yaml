@@ -1,0 +1,49 @@
+---
+# BONUS : deuxieme service, via Docker plutot qu'un paquet apt, pour montrer
+# les deux approches de deploiement sur la meme VM.
+
+- name: Installer Docker
+  become: true
+  ansible.builtin.apt:
+    name: docker.io
+    state: present
+    update_cache: true
+
+- name: Demarrer et activer le service Docker
+  become: true
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Creer le dossier du site servi par le conteneur
+  become: true
+  ansible.builtin.file:
+    path: /opt/docker-site
+    state: directory
+    mode: "0755"
+
+- name: Copier le site statique pour le conteneur
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/opt/docker-site/{{ item }}"
+    mode: "0644"
+  loop:
+    - index.html
+    - style.css
+    - script.js
+
+- name: Verifier si le conteneur web-docker tourne deja
+  become: true
+  ansible.builtin.command: docker ps -aq --filter "name=web-docker"
+  register: docker_ps
+  changed_when: false
+
+- name: Lancer nginx dans un conteneur Docker (port 8080)
+  become: true
+  ansible.builtin.command: >
+    docker run -d --name web-docker -p 8080:80
+    -v /opt/docker-site:/usr/share/nginx/html:ro
+    --restart unless-stopped nginx:alpine
+  when: docker_ps.stdout == ""
