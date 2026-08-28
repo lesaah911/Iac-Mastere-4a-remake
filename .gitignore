@@ -1,0 +1,21 @@
+#terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+override.tf 
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ansible - inventaire generer automatiquement par Terraform
+
+ansible/inventory.ini
+.*retry
+.ansible
+
+#secret locaux
+
+*.pem
+.env
