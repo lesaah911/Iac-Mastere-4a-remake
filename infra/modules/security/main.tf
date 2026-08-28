@@ -1,6 +1,6 @@
 resource "aws_security_group" "sg_saah" {
   name = "${var.prefix}-sg"
-  description = "SG genere depuis une liste d'objets (dynamy block)"
+  description = "SG genere depuis une liste d objets (dynamic block)"
   vpc_id = var.vpc_id
 
   dynamic "ingress" {
@@ -10,7 +10,7 @@ resource "aws_security_group" "sg_saah" {
       from_port = ingress.value.from_port
       to_port = ingress.value.to_port
       protocol = ingress.value.protocol
-      cidr_blocks = ingress.value.cidr_block
+      cidr_blocks = ingress.value.cidr_blocks
     }
   }
 

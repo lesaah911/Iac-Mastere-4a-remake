@@ -1,13 +1,13 @@
 
 region      = "us-east-1"
 username    = "emeric"
-environment = "dev"
+environment = "staging"
 
 vpc_id = "vpc-0d2494c176de7a66e"
 
 subnets = {
   public = {
-    cidr                    = "10.0.1.0/24"
+    cidr                    = "172.31.200.0/24"
     map_public_ip_on_launch = true
   }
 }

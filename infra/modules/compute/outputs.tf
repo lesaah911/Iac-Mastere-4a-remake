@@ -1,5 +1,5 @@
 output "public_ip" {
-  value = aws_eip.eip_saah
+  value = aws_eip.eip_saah.public_ip
 }
 
 output "instance_id" {
